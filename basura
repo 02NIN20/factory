@@ -1,0 +1,93 @@
+setTitle("Panel de Calculo");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 200);
+        setLocationRelativeTo(null);
+
+        JPanel contenedor = new JPanel();
+        contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
+        contenedor.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+                
+        JLabel etiqueta = new JLabel("Ingrese un Numero:");
+        campoEntrada = new JTextField();
+        botonProcesar = new JButton("Calcular");
+        
+        add(etiqueta);
+        add(Box.createVerticalStrut(5));
+        add(campoEntrada);
+        add(Box.createVerticalStrut(10));
+        add(botonProcesar);
+
+        //frameFabrica
+
+        package com.project.GUIs;
+
+import com.project.Principal.FabricaGUI;
+
+import com.project.Entradas.*;
+import com.project.Salidas.*;
+
+public class FabricaFrame implements FabricaGUI {
+
+    @Override
+    public Entrada crearEntrada() {
+        return new EntradaFrame();
+    }
+
+    @Override
+    public Salida crearSalida() {
+        return new SalidaFrame();
+    }
+
+}
+//entradaframe
+package com.project.Entradas;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
+public class EntradaFrame extends JFrame implements Entrada {
+    private JTextField campoEntrada;
+    private JButton botonProcesar;
+
+    public EntradaFrame() {
+        
+        setTitle("Entrada de Número");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 150);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel etiqueta = new JLabel("Ingrese un número:");
+        etiqueta.setAlignmentX(CENTER_ALIGNMENT);
+        panel.add(etiqueta);
+
+        campoEntrada = new JTextField(10);
+        campoEntrada.setMaximumSize(campoEntrada.getPreferredSize());
+        panel.add(campoEntrada);
+
+        botonProcesar = new JButton("Procesar");
+        botonProcesar.setAlignmentX(CENTER_ALIGNMENT);
+        panel.add(botonProcesar);
+
+        add(panel);
+    }
+
+        @Override
+        public double entradaNumero() {
+            try {
+                return Double.parseDouble(campoEntrada.getText().trim());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return 0.0;
+            }
+        }
+
+        public void setActionListener(ActionListener listener) {
+        botonProcesar.addActionListener(listener);
+    }
+}
+
