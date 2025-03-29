@@ -40,7 +40,7 @@ public class LogicaFrame implements Logica {
                 return 0;
             }
             double resultado = Math.sqrt(n);
-            salida.mostrarNumero(resultado); // Mostrar el resultado
+            salida.mostrarNumero(resultado);
             return resultado;
     }
 }

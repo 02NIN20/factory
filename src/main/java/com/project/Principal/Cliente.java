@@ -23,21 +23,13 @@ public class Cliente {
         this.fabrica = fab;
     }
 
-    public void menuInicial() {   
-        /*
-            double entrada = fabrica.crearEntrada().entradaNumero();
-            double logica = fabrica.crearLogica().procesarNumero(entrada);
-            fabrica.crearSalida().mostrarNumero(logica);*/
-            // Crear las instancias de entrada, salida y lógica usando la fábrica
+    public void menuInicial() { 
             entrada = fabrica.crearEntrada();
             salida = fabrica.crearSalida();
             logica = fabrica.crearLogica();
     
             double numeroEntrada = entrada.entradaNumero();
-            // Procesar el número usando la lógica
             double resultado = logica.procesarNumero(numeroEntrada);
-    
-            // Mostrar el resultado en la salida
             salida.mostrarNumero(resultado);
     }
 }
