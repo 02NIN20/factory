@@ -1,4 +1,5 @@
 package com.project.Salidas;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,18 +7,22 @@ public class SalidaFrame extends JPanel implements Salida {
     private JLabel etiquetaResultado;
 
     public SalidaFrame() {
-        initComponents();
-    }
-
-    private void initComponents() {
-        etiquetaResultado = new JLabel("Resultado aparecerá aquí");
-        etiquetaResultado.setHorizontalAlignment(SwingConstants.CENTER);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        etiquetaResultado = new JLabel("Resultado: ");
         add(etiquetaResultado);
     }
 
     @Override
     public void mostrarNumero(double numero) {
-        etiquetaResultado.setText(String.format("Resultado: %.2f", numero));
+        etiquetaResultado.setText("Resultado: " + numero);
+        revalidate(); // Asegura que el componente se actualice
+        repaint();    // Redibuja el componente
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        etiquetaResultado.setText(mensaje);
+        revalidate(); // Asegura que el componente se actualice
+        repaint();    // Redibuja el componente
     }
     
     /*

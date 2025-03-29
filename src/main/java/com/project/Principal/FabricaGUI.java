@@ -1,9 +1,11 @@
 package com.project.Principal;
 
-import com.project.Entradas.Entrada;
-import com.project.Salidas.Salida;
+import com.project.Entradas.*;
+import com.project.Salidas.*;
+import com.project.Logica.*;
 
 public interface FabricaGUI {
-    Salida crearSalida();
     Entrada crearEntrada();
+    Logica crearLogica();
+    Salida crearSalida();    
 }

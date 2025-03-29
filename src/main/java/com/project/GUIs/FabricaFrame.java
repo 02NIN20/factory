@@ -1,54 +1,61 @@
 package com.project.GUIs;
 
 import com.project.Principal.FabricaGUI;
-
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-
+import javax.swing.*;
+import java.awt.*;
 import com.project.Entradas.*;
 import com.project.Salidas.*;
+import com.project.Logica.*;
 
 public class FabricaFrame extends JFrame implements FabricaGUI {
-    private JFrame framePrincipal;
 
     public FabricaFrame() {
-        framePrincipal = new JFrame("Aplicación Principal");
+        //this.entrada = new EntradaFrame().a();
+        //this.salida = new SalidaFrame();
+        JFrame framePrincipal = new JFrame("Aplicación Principal");
         framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        framePrincipal.setSize(300, 200);
+        framePrincipal.setSize(300, 300);
         framePrincipal.setLocationRelativeTo(null);
+        //framePrincipal.add(entrada, BorderLayout.NORTH);
+        //framePrincipal.add(salida, BorderLayout.CENTER);
+        EntradaFrame entrada = (EntradaFrame) crearEntrada();
+        SalidaFrame salida = (SalidaFrame) crearSalida();
 
-        double entradas = crearEntrada();
-        configurarEventos();
-        crearSalida();
-    }
+        // Agregar los componentes al frame
+        framePrincipal.add(entrada, BorderLayout.NORTH);
+        framePrincipal.add(salida, BorderLayout.CENTER);
 
-    private void configurarEventos() {
-        crearEntrada().setActionListener((ActionEvent e) -> {
-            procesarEntrada();
-        });
-    }
+        // Crear la lógica y configurar eventos
+        Logica logica = crearLogica(entrada, salida);
 
-    private void procesarEntrada() {
-        double numero = entrada.entradaNumero();
-        crearSalida().mostrarNumero(numero);
+        /*
+        // Crear y agregar los componentes
+        EntradaFrame entradaFrame = (EntradaFrame) crearEntrada();
+        SalidaFrame salidaFrame = (SalidaFrame) crearSalida();
+        
+
+        // Crear lógica (aunque no se agrega al frame)
+        crearLogica(entradaFrame, salidaFrame);*/
+
+       framePrincipal.setVisible(true);
     }
 
     @Override
     public Entrada crearEntrada() {
-        EntradaFrame entrada = new EntradaFrame();
-        framePrincipal.add(entrada, BorderLayout.NORTH);
-        return entrada;
+        return new EntradaFrame();
     }
 
     @Override
     public Salida crearSalida() {
-        SalidaFrame salida = new SalidaFrame();
-        framePrincipal.add(salida, BorderLayout.CENTER);
-        return salida;
+        return new SalidaFrame();
     }
 
-    public void mostrarGUI() {
-        framePrincipal.setVisible(true);
+    @Override
+    public Logica crearLogica() {
+        return new LogicaFrame((EntradaFrame) crearEntrada(), (SalidaFrame) crearSalida());
+    }
+    
+    public Logica crearLogica(EntradaFrame entradaFrame, SalidaFrame salidaFrame) {
+        return new LogicaFrame(entradaFrame, salidaFrame);
     }
 }

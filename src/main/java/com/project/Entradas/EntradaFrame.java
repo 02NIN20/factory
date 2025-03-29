@@ -1,43 +1,44 @@
 package com.project.Entradas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class EntradaFrame extends JPanel implements Entrada {
-    private JTextField campoEntrada;
+    private JTextField campoNumero;
     private JButton botonProcesar;
+    private ActionListener procesarListener;
 
     public EntradaFrame() {
-        initComponents();
-    }
-
-    private void initComponents() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
         JLabel etiqueta = new JLabel("Ingrese un número:");
-        etiqueta.setAlignmentX(CENTER_ALIGNMENT);
+        campoNumero = new JTextField(15);
+        botonProcesar = new JButton("Procesar");
+
         add(etiqueta);
-
-        campoEntrada = new JTextField(10);
-        campoEntrada.setMaximumSize(campoEntrada.getPreferredSize());
-        add(campoEntrada);
-
-        botonProcesar = new JButton("Calcular");
-        botonProcesar.setAlignmentX(CENTER_ALIGNMENT);
+        add(campoNumero);
         add(botonProcesar);
     }
 
     @Override
     public double entradaNumero() {
         try {
-            return Double.parseDouble(campoEntrada.getText().trim());
+            return Double.parseDouble(campoNumero.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            return 0.0;
-        }
+            JOptionPane.showMessageDialog(this,"-----------------------------------");
+            return 0;
+        }    
     }
 
-    public void setActionListener(ActionListener listener) {
-        botonProcesar.addActionListener(listener);
+    public JTextField getCampoNumero() {
+        return campoNumero;
+    }
+
+    public JButton getBotonProcesar() {
+        return botonProcesar;
+    }
+    
+    public void setProcesarListener(ActionListener listener) {
+        this.procesarListener = listener;
     }
 }

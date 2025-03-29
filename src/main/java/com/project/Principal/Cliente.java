@@ -1,64 +1,43 @@
 package com.project.Principal;
-import java.util.Scanner;
 
-import javax.swing.SwingUtilities;
-
-import java.security.Principal;
-
-import com.project.Entradas.Entrada;
-import com.project.Entradas.EntradaFrame;
-import com.project.GUIs.FabricaFrame;
-import com.project.Salidas.Salida;
+import com.project.Entradas.*;
+import com.project.GUIs.*;
+import com.project.Salidas.*;
+import com.project.Logica.*;
 
 public class Cliente {
     private FabricaGUI fabrica;
     private Entrada entrada;
+    private Logica logica;
     private Salida salida;
 
-    Cliente() {
+    public Cliente(FabricaGUI fab) {
+        this.fabrica = fab;
+    }
 
+    public FabricaGUI getFab() {
+        return fabrica;
+    }
+
+    public void setFab(FabricaGUI fab) {
+        this.fabrica = fab;
+    }
+
+    public void menuInicial() {   
+        /*
+            double entrada = fabrica.crearEntrada().entradaNumero();
+            double logica = fabrica.crearLogica().procesarNumero(entrada);
+            fabrica.crearSalida().mostrarNumero(logica);*/
+            // Crear las instancias de entrada, salida y lógica usando la fábrica
+            entrada = fabrica.crearEntrada();
+            salida = fabrica.crearSalida();
+            logica = fabrica.crearLogica();
     
+            double numeroEntrada = entrada.entradaNumero();
+            // Procesar el número usando la lógica
+            double resultado = logica.procesarNumero(numeroEntrada);
+    
+            // Mostrar el resultado en la salida
+            salida.mostrarNumero(resultado);
     }
-
-
-    public void menuInicial() {
-            while(true){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("----- Sistema de Calculo ------\n");
-            System.out.println("    [Selecciones un metodo de visualizacion]    \n");
-            System.out.println("    1. Consola");
-            System.out.println("    2. Frame");
-            System.out.println("    3. Salir");
-            int opcion = scanner.nextInt();
-            switch (opcion) {
-                case 1:                                
-                        
-                    break;
-                case 2:
-                        new FabricaFrame().mostrarGUI();
-                    break;
-                case 3:
-                    System.out.println("Muchas gracias. ¡Hasta luego!");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Opción no válida. Por favor, intente nuevamente.");
-            }
-        }
-    }
-    /* 
-    public void Prueba() {
-        Entrada entrada = fabricar.crearEntrada();
-        Principal principal = fabricar.crearPrincipal();
-        Bebida bebida = fabricar.crearBebida();
-        Postre postre = fabricar.crearPostre();
-
-        entrada.servirEntrada();
-        principal.servirPrincipal();
-        bebida.servirBebida();
-        postre.servirPostre();
-    }*/
-
-
-
 }
