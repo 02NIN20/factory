@@ -8,6 +8,8 @@ import com.project.Salidas.*;
 import com.project.Logica.*;
 
 public class FabricaFrame extends JFrame implements FabricaGUI {
+    private EntradaFrame entrada;
+    private SalidaFrame salida;
 
     public FabricaFrame() {
         JFrame framePrincipal = new JFrame("Aplicación Principal");
@@ -15,35 +17,27 @@ public class FabricaFrame extends JFrame implements FabricaGUI {
         framePrincipal.setSize(300, 300);
         framePrincipal.setLocationRelativeTo(null);
 
-        EntradaFrame entrada = (EntradaFrame) crearEntrada();
-        SalidaFrame salida = (SalidaFrame) crearSalida();
-
+        entrada = new EntradaFrame();
+        salida = new SalidaFrame();
 
         framePrincipal.add(entrada, BorderLayout.NORTH);
         framePrincipal.add(salida, BorderLayout.CENTER);
 
-
-        Logica logica = crearLogica(entrada, salida);
-
-       framePrincipal.setVisible(true);
+        framePrincipal.setVisible(true);
     }
 
     @Override
     public Entrada crearEntrada() {
-        return new EntradaFrame();
+        return entrada;
     }
 
     @Override
     public Salida crearSalida() {
-        return new SalidaFrame();
+        return new SalidaAdapter(salida);
     }
 
     @Override
     public Logica crearLogica() {
-        return new LogicaFrame((EntradaFrame) crearEntrada(), (SalidaFrame) crearSalida());
-    }
-    
-    public Logica crearLogica(EntradaFrame entradaFrame, SalidaFrame salidaFrame) {
-        return new LogicaFrame(entradaFrame, salidaFrame);
+        return new LogicaFrame(entrada, salida);
     }
 }
