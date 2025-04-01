@@ -1,1 +1,1 @@
-![DiagramaAbstractF](https://github.com/user-attachments/assets/5a744777-3600-4ddb-987a-8173035b9618)
+![DiagramaAbstractF](https://github.com/user-attachments/assets/99199f02-18cf-483c-903a-deb09f34ea8e)
